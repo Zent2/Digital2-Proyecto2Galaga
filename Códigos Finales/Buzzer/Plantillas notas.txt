@@ -1,0 +1,80 @@
+int pinBuzzer3 = 3;
+int pinBuzzer2 = 5;
+int pinBuzzer = 6;
+
+// Notas naturales
+int Do = 261;   // Frecuencia de Do (Do4)
+int Re = 294;   // Frecuencia de Re (Re4)
+int Mi = 330;   // Frecuencia de Mi (Mi4)
+int Fa = 349;   // Frecuencia de Fa (Fa4)
+int Sol = 392;  // Frecuencia de Sol (Sol4)
+int La = 440;   // Frecuencia de La (La4)
+int Si = 494;   // Frecuencia de Si (Si4)
+
+int Do3 = 131;  // Frecuencia de Do (Do3)
+int Re3 = 147;  // Frecuencia de Re (Re3)
+int Mi3 = 165;  // Frecuencia de Mi (Mi3)
+int Fa3 = 175;  // Frecuencia de Fa (Fa3)
+int Sol3 = 196; // Frecuencia de Sol (Sol3)
+int La3 = 220;  // Frecuencia de La (La3)
+int Si3 = 247;  // Frecuencia de Si (Si3)
+
+int Do5 = 523;  // Frecuencia de Do (Do5)
+int Re5 = 587;  // Frecuencia de Re (Re5)
+int Mi5 = 659;  // Frecuencia de Mi (Mi5)
+int Fa5 = 698;  // Frecuencia de Fa (Fa5)
+int Sol5 = 784; // Frecuencia de Sol (Sol5)
+int La5 = 880;  // Frecuencia de La (La5)
+int Si5 = 988;  // Frecuencia de Si (Si5)
+
+// Notas con sostenidos y bemoles
+int Do_s = 277;    // Frecuencia de Do sostenido (C♯4/D♭4)
+int Re_s = 311;    // Frecuencia de Re sostenido (D♯4/E♭4)
+int Fa_s = 370;    // Frecuencia de Fa sostenido (F♯4/G♭4)
+int Sol_s = 415;   // Frecuencia de Sol sostenido (G♯4/A♭4)
+int La_s = 466;    // Frecuencia de La sostenido (A♯4/B♭4)
+int Si_s = 494;    // Frecuencia de Si sostenido (B♯4/C♭5)
+
+int Do3_s = 139;   // Frecuencia de Do sostenido (C♯3/D♭3)
+int Re3_s = 156;   // Frecuencia de Re sostenido (D♯3/E♭3)
+int Fa3_s = 185;   // Frecuencia de Fa sostenido (F♯3/G♭3)
+int Sol3_s = 208;  // Frecuencia de Sol sostenido (G♯3/A♭3)
+int La3_s = 233;   // Frecuencia de La sostenido (A♯3/B♭3)
+int Si3_s = 247;   // Frecuencia de Si sostenido (B♯3/C♭4)
+
+int Do5_s = 554;   // Frecuencia de Do sostenido (C♯5/D♭5)
+int Re5_s = 622;   // Frecuencia de Re sostenido (D♯5/E♭5)
+int Fa5_s = 740;   // Frecuencia de Fa sostenido (F♯5/G♭5)
+int Sol5_s = 831;  // Frecuencia de Sol sostenido (G♯5/A♭5)
+int La5_s = 932;   // Frecuencia de La sostenido (A♯5/B♭5)
+int Si5_s = 988;   // Frecuencia de Si sostenido (B♯5/C♭6)
+
+
+
+int negra = 500; // Duración de una negra en milisegundos
+
+// Calcula las duraciones de otras notas en función de la negra
+int corchea = negra / 2;
+int semicorchea = negra / 4;
+int fusa = negra / 8;
+int redonda = negra * 4;
+int blanca = negra * 2;
+int pausa = 100; // Duración de una pausa en milisegundos
+
+void setup() {
+  // No es necesario configurar nada en el setup
+}
+
+void loop() {
+  int melodia[] = {La, Re, Fa, La, Re, Fa, La, Do5, Si, Sol, Fa, Sol, La, Re, Do, Mi, Re};
+  int duraciones[] = {negra, blanca, negra, negra, blanca, negra, corchea, corchea, negra, 
+  negra, corchea, corchea, negra, negra, corchea, corchea, blanca};
+
+  for (int i = 0; i < sizeof(melodia) / sizeof(melodia[0]); i++) {
+    tone(pinBuzzer, melodia[i], duraciones[i]);
+    delay(duraciones[i]);
+    noTone(pinBuzzer);
+    delay(pausa);
+  }
+  delay(5*pausa);
+}

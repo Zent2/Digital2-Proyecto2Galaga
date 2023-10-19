@@ -1,0 +1,169 @@
+
+int pinBuzzer = 6;
+//int pinBuzzer2 = 5;
+//int pinBuzzer3 = 3;
+int buttonPin = 13;  // Pin del botón
+
+// Notas naturales
+int Do = 261;   // Frecuencia de Do (Do4)
+int Re = 294;   // Frecuencia de Re (Re4)
+int Mi = 330;   // Frecuencia de Mi (Mi4)
+int Fa = 349;   // Frecuencia de Fa (Fa4)
+int Sol = 392;  // Frecuencia de Sol (Sol4)
+int La = 440;   // Frecuencia de La (La4)
+int Si = 494;   // Frecuencia de Si (Si4)
+
+int Do3 = 131;  // Frecuencia de Do (Do3)
+int Re3 = 147;  // Frecuencia de Re (Re3)
+int Mi3 = 165;  // Frecuencia de Mi (Mi3)
+int Fa3 = 175;  // Frecuencia de Fa (Fa3)
+int Sol3 = 196; // Frecuencia de Sol (Sol3)
+int La3 = 220;  // Frecuencia de La (La3)
+int Si3 = 247;  // Frecuencia de Si (Si3)
+
+int Do5 = 523;  // Frecuencia de Do (Do5)
+int Re5 = 587;  // Frecuencia de Re (Re5)
+int Mi5 = 659;  // Frecuencia de Mi (Mi5)
+int Fa5 = 698;  // Frecuencia de Fa (Fa5)
+int Sol5 = 784; // Frecuencia de Sol (Sol5)
+int La5 = 880;  // Frecuencia de La (La5)
+int Si5 = 988;  // Frecuencia de Si (Si5)
+
+// Notas con sostenidos y bemoles
+int Do_s = 277;    // Frecuencia de Do sostenido (C♯4/D♭4)
+int Re_s = 311;    // Frecuencia de Re sostenido (D♯4/E♭4)
+int Fa_s = 370;    // Frecuencia de Fa sostenido (F♯4/G♭4)
+int Sol_s = 415;   // Frecuencia de Sol sostenido (G♯4/A♭4)
+int La_s = 466;    // Frecuencia de La sostenido (A♯4/B♭4)
+int Do_b = 277;    // Frecuencia de Do bemol (C♯4/D♭4)
+int Re_b = 311;    // Frecuencia de Re bemol (D♯4/E♭4)
+int Mi_b = 311.13;;    // Frecuencia de Mi bemol (E♯4/F♭4)
+int Fa_b = 370;    // Frecuencia de Fa bemol (F♯4/G♭4)
+int Sol_b = 415;   // Frecuencia de Sol bemol (G♯4/A♭4)
+int La_b = 466;    // Frecuencia de La bemol (A♯4/B♭4)
+int Si_b = 466; // Frecuencia de Si bemol (A♯4/B♭4)
+
+int Do3_s = 139;   // Frecuencia de Do sostenido (C♯3/D♭3)
+int Re3_s = 156;   // Frecuencia de Re sostenido (D♯3/E♭3)
+int Fa3_s = 185;   // Frecuencia de Fa sostenido (F♯3/G♭3)
+int Sol3_s = 208;  // Frecuencia de Sol sostenido (G♯3/A♭3)
+int La3_s = 233;   // Frecuencia de La sostenido (A♯3/B♭3)
+int Do3_b = 139;   // Frecuencia de Do bemol (C♯3/D♭3)
+int Re3_b = 156;   // Frecuencia de Re bemol (D♯3/E♭3)
+int Fa3_b = 185;   // Frecuencia de Fa bemol (F♯3/G♭3)
+int Sol3_b = 208;  // Frecuencia de Sol bemol (G♯3/A♭3)
+int La3_b = 233;   // Frecuencia de La bemol (A♯3/B♭3)
+int Si3_b = 233.08; // Frecuencia de Si bemol (A♯3/B♭3)
+
+int Do5_s = 554;   // Frecuencia de Do sostenido (C♯5/D♭5)
+int Re5_s = 622;   // Frecuencia de Re sostenido (D♯5/E♭5)
+int Fa5_s = 740;   // Frecuencia de Fa sostenido (F♯5/G♭5)
+int Sol5_s = 831;  // Frecuencia de Sol sostenido (G♯5/A♭5)
+int La5_s = 932;   // Frecuencia de La sostenido (A♯5/B♭5)
+int Do5_b = 554;   // Frecuencia de Do bemol (C♯5/D♭5)
+int Re5_b = 622;   // Frecuencia de Re bemol (D♯5/E♭5)
+int Fa5_b = 740;   // Frecuencia de Fa bemol (F♯5/G♭5)
+int Sol5_b = 831;  // Frecuencia de Sol bemol (G♯5/A♭5)
+int La5_b = 932;   // Frecuencia de La bemol (A♯5/B♭5)
+
+int negra = 500; // Duración de una negra en milisegundos
+
+// Calcula las duraciones de otras notas en función de la negra
+int corchea = negra / 2;
+int semicorchea = negra / 4;
+int fusa = negra / 8;
+int redonda = negra * 4;
+int blanca = negra * 2;
+int pausa = negra/5; // Duración de una pausa en milisegundos
+
+int melodia[] = {Sol3, Do, Re, Fa, Mi, Do, Re, La, 
+  Sol, Do, Re, Fa, Mi, Do, Sol, Si, 
+  Do5, Si_b, La_b, Sol, Fa, Mi_b, Re, Si3_b,
+  Si_b, Do5, Si, Sol, La, Fa, Re, Sol, Mi, Re};
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP);  // Configurar el pin del botón como entrada con resistencia pull-up
+  pinMode(pinBuzzer, OUTPUT);  // Configurar el pin del buzzer como salida
+  for (int i = 0; i < sizeof(melodia) / sizeof(melodia[0]); i++) {
+    // Toca las notas en ambos buzzers al mismo tiempo
+    tone(pinBuzzer, melodia[i]);
+    delay(corchea);
+    noTone(pinBuzzer);
+
+    // Agrega una pausa
+    delay(pausa);
+  }
+}
+
+void loop() {
+  
+  /*Para otras melodías xd
+  int duraciones[] = {corchea, corchea, corchea, corchea, corchea, corchea, corchea, corchea, 
+  corchea, corchea, corchea, corchea, corchea, corchea, corchea, corchea, 
+  corchea, corchea, corchea, corchea, corchea, corchea, corchea, corchea,
+  corchea, corchea, corchea, corchea, corchea, corchea, corchea, corchea, corchea, corchea};
+
+  int melodia2[] = {Mi, Sol3, Re, La3, Do, Sol3, La3, Si3, 
+  Mi, Sol3, Re, La3, Do, Sol3,  Re, Sol, 
+  La_b, Sol, Fa, Mi_b, Re, Do, Si3_b, Re,
+  Mi_b, Fa, Mi, Do, Fa, Re, La3, Re, Si3, La3};
+
+  int melodia3[] = {Sol3, Sol3, La3, Do, Si3, Si3, Sol3, Sol3, 
+  Do, Do, Re, Fa, Mi, Mi, Re, Re, 
+  Mi_b, Mi_b, Re, Do, Si3_b, Si3_b, Mi, Mi,
+  Si_b, Si_b, Sol, Mi_b, Re, Re, Re, Sol, Sol, Sol};*/
+  
+  
+  //Rutina para que cada que se apache un botón suene un Do en el Buzzer
+  int buttonReading = digitalRead(buttonPin);
+  
+  if (buttonReading == LOW) {
+    //Disparo
+    for (int i = 2500; i >= 100; i -= 100) {
+    tone(pinBuzzer, i, 20);  // Tocar una nota con una frecuencia descendente y corta duración
+    delay(10);  // Pequeña pausa entre las notas
+    noTone(pinBuzzer);  // Detener el sonido
+  }
+  delay(1000);
+  //Explosión 1
+  for (int i = 200; i <= 800; i += 200) {
+    tone(pinBuzzer, i, 100);  // Tocar una nota con una frecuencia descendente y corta duración
+    delay(10);  // Pequeña pausa entre las notas
+    noTone(pinBuzzer);  // Detener el sonido
+  }
+  delay(1000);
+  //Explosión 2
+  for (int i = 300; i <= 700; i += 100) {
+    tone(pinBuzzer, i, 100);  // Tocar una nota con una frecuencia descendente y corta duración
+    delay(10);  // Pequeña pausa entre las notas
+    noTone(pinBuzzer);  // Detener el sonido
+  }
+  delay(1000);
+  
+  //Muerte Explosión
+  for (int i = 100; i <= 500; i += 50) {
+    tone(pinBuzzer, i, 100);
+    delay(50);  // Pausa breve entre las notas
+  }
+
+  // Sonido de retumbe
+  tone(pinBuzzer, 200, 500);
+  delay(500);
+
+  delay(1000);
+
+  // Sonido de ganador
+    for (int i = 500; i <= 2500; i += 100) {
+      tone(pinBuzzer, i, 50);
+      delay(20);
+    }
+    delay(1000);
+    
+    // Sonido de perdedor
+    for (int i = 2500; i >= 500; i -= 100) {
+      tone(pinBuzzer, i, 50);
+      delay(20);
+    }
+    delay(1000);
+  }
+}
